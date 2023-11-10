@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Deck {
 
-    private List<Card> cards;
+    private ArrayList<Card> cards;
     private int deckNumber;
 
     public synchronized void shuffle() {
@@ -28,4 +28,14 @@ public class Deck {
     public synchronized int deckSize() {
         return cards.size();
     }
+
+    public int getDeckNumber() {
+        return deckNumber;
+    }
+
+    public ArrayList<Card> getCardsInDeck() {
+        return cards;
+    }
+
+    //TODO: implement run-time functionaliy for decks i.e.writing to files at end of game
 }
