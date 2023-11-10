@@ -37,5 +37,5 @@ public class Deck {
         return cards;
     }
 
-    //TODO: implement run-time functionaliy for decks i.e.writing to files at end of game
+    //TODO: implement run-time functionality for decks i.e. writing to files at end of game
 }
