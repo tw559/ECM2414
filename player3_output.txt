@@ -1,0 +1,48 @@
+player 3 draws a 5 from deck 3
+player 3 discards a 43 to deck 4
+player 3 current hand is [67, 9, 3, 5]
+player 3 draws a 3 from deck 3
+player 3 discards a 67 to deck 4
+player 3 current hand is [9, 3, 5, 3]
+player 3 draws a 6 from deck 3
+player 3 discards a 9 to deck 4
+player 3 current hand is [3, 5, 3, 6]
+player 3 draws a 56 from deck 3
+player 3 discards a 5 to deck 4
+player 3 current hand is [3, 3, 6, 56]
+player 3 draws a 67 from deck 3
+player 3 discards a 6 to deck 4
+player 3 current hand is [3, 3, 56, 67]
+player 3 draws a 56 from deck 3
+player 3 discards a 56 to deck 4
+player 3 current hand is [3, 3, 67, 56]
+player 3 draws a 67 from deck 3
+player 3 discards a 67 to deck 4
+player 3 current hand is [3, 3, 56, 67]
+player 3 draws a 4 from deck 3
+player 3 discards a 56 to deck 4
+player 3 current hand is [3, 3, 67, 4]
+player 3 draws a 56 from deck 3
+player 3 discards a 67 to deck 4
+player 3 current hand is [3, 3, 4, 56]
+player 3 draws a 34 from deck 3
+player 3 discards a 4 to deck 4
+player 3 current hand is [3, 3, 56, 34]
+player 3 draws a 6 from deck 3
+player 3 discards a 56 to deck 4
+player 3 current hand is [3, 3, 34, 6]
+player 3 draws a 3 from deck 3
+player 3 discards a 34 to deck 4
+player 3 current hand is [3, 3, 6, 3]
+player 3 draws a 24 from deck 3
+player 3 discards a 6 to deck 4
+player 3 current hand is [3, 3, 3, 24]
+player 3 draws a 91 from deck 3
+player 3 discards a 24 to deck 4
+player 3 current hand is [3, 3, 3, 91]
+player 3 draws a 3 from deck 3
+player 3 discards a 91 to deck 4
+player 3 current hand is [3, 3, 3, 3]
+Player 3 wins
+player 3 exits
+player 3 final hand: [3, 3, 3, 3]
