@@ -46,7 +46,8 @@ public class Deck {
     public void endGame() throws IOException {
         String deckStr = ("deck" + deckNumber + "_output.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(deckStr));
-        writer.write("deck " + deckNumber + " contents at end of game: " + cards);
+        writer.write("Deck " + deckNumber + " contents at end of game: " + cards);
+
         writer.close();
 
     }

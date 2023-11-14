@@ -4,9 +4,27 @@ import java.io.*;
 public class CardGame {
 
     public static void main(String[] args) throws Exception{
+
+        /*
         Scanner in = new Scanner(System.in);
-        System.out.println("Please enter number of players");
+        System.out.println("Please enter number of players: ");
         int n = Integer.parseInt(in.nextLine());
+        //int n = 3;
+        int totalCards = 8 * n;
+        */
+
+        Scanner input = new Scanner(System.in);
+        int n;
+        do {
+            System.out.println("Please enter number of players (number should be a positive integer): ");
+            while (!input.hasNextInt()) {
+                System.out.println("That's not a positive integer");
+                System.out.println("Please enter number of players (number should be a positive integer): ");
+                input.next();
+            }
+            n = input.nextInt();
+            input.nextLine();
+        } while (n <= 0);
         int totalCards = 8 * n;
 
         List<Deck> decks = new ArrayList<>();
@@ -41,18 +59,46 @@ public class CardGame {
             System.out.println("left deck: " + p.getLeftDeck().getDeckNumber());
             System.out.println("right deck: " + p.getRightDeck().getDeckNumber());
         }*/
+
+        /*
         boolean packRead = false;
-        while (packRead == false) {
-            System.out.println("Please enter location of pack to load");
-            String file = in.nextLine();       
+        Scanner inputPack = new Scanner(System.in);
+        do {
+            System.out.println("Please enter location of pack to load: ");
+            while(!inputPack.hasNextLine()) {
+                String file = inputPack.nextLine();
+                //String file = "threeB.txt";
+                try {
+                    remainingCards = attemptToReadPackFile(file, totalCards);
+                    packRead = true;
+                } catch (Exception e) {
+                    System.out.println("Invalid pack file");
+                }
+            }
+        } while (!packRead);
+         */
+
+        boolean packRead = false;
+        while (!packRead) {
+            System.out.println("Please enter the location of the pack to load (pack should be a plain text file): ");
+            /*
+            while (!input.hasNext(".*.txt")) {
+                System.out.println("That's not a .txt file");
+                System.out.println("Please enter the location of the pack to load (pack should be a plain text file): ");
+                input.next();
+            }
+             */
+            String file = input.nextLine();
             try {
-                remainingCards = attemptToReadPackFile(file,totalCards);
+                remainingCards = attemptToReadPackFile(file, totalCards);
                 packRead = true;
-            }   catch(Exception e) {
-                System.out.println("Invalid pack file");
+            } catch (Exception e) {
+                System.out.println("Can't find pack file");
             }
         }
-        in.close();
+        input.close();
+
+            //inputPack.close();
         //testing getting cards from file works
         /*for (Card c : remainingCards) {
             System.out.println(c.getValue());
@@ -99,6 +145,14 @@ public class CardGame {
             System.out.println(player.checkWinningHand());
         }
         */
+
+
+        int deckTotal = 0;
+        for (Deck deck : decks) {
+            deckTotal = deckTotal + deck.deckSize();
+        }
+        System.out.println(deckTotal);
+
     }
 
     public static ArrayList<Card> attemptToReadPackFile(String file, int cardNum) throws Exception {

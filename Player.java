@@ -69,7 +69,7 @@ public class Player implements Runnable{
     }
 
     public void playGame() throws IOException {
-        //the gameWon value has been made an attribute so it can be altered by the method which 
+        //the gameWon value has been made an attribute, so it can be altered by the method which
         //receives a notification (in the form of an event) when another player wins
         String playerStr = ("player"+playerNumber+"_output.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(playerStr));
@@ -90,8 +90,20 @@ public class Player implements Runnable{
 
                 // Checks if the leftDeck is empty
                 //sometimes the decks are empty but it doesn't *seem* to cause any problems 
+                /*
                 if (!leftDeck.getCardsInDeck().isEmpty()) {
                     drawAndDiscard(writer);      
+                }
+                */
+
+                if (leftDeck.deckSize() == 0) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    drawAndDiscard(writer);
                 }
             
                 
@@ -103,10 +115,10 @@ public class Player implements Runnable{
         //System.out.println("player " + playerNumber + " final hand: " + hand);
         //System.out.println("player " + playerNumber + " exits");
         if (!checkWinningHand()) {
-            writer.write("player " + winningPlayerNumber + " has informed player " + playerNumber + " that player " +winningPlayerNumber+" has won.\n");
+            writer.write("Player " + winningPlayerNumber + " has informed Player " + playerNumber + " that Player " +winningPlayerNumber+" has won.\n");
         }
-        writer.write("player " + playerNumber + " exits\n");
-        writer.write("player " + playerNumber + " final hand: " + hand + "\n");
+        writer.write("Player " + playerNumber + " exits\n");
+        writer.write("Player " + playerNumber + " final hand: " + hand + "\n");
         
         
         endGame(writer);
@@ -121,7 +133,7 @@ public class Player implements Runnable{
         Card drawnCard = leftDeck.getCardsInDeck().remove(0);
         // Announces what the card 'drawn' is
         //System.out.println("player " + playerNumber + " draws a " + drawnCard.getValue() + " from deck " + leftDeck.getDeckNumber());
-        writer.write("player " + playerNumber + " draws a " + drawnCard.getValue() + " from deck " + leftDeck.getDeckNumber() + "\n");
+        writer.write("Player " + playerNumber + " draws a " + drawnCard.getValue() + " from deck " + leftDeck.getDeckNumber() + "\n");
         // Then adds that card to hand
         addCardToHand(drawnCard);
 
@@ -140,7 +152,7 @@ public class Player implements Runnable{
                 rightDeck.addCardToDeck(discardedCard);
                 hasDiscarded = true;
                 //System.out.println("player " + playerNumber + " discards a " + discardedCard.getValue() + " to deck " + rightDeck.getDeckNumber());
-                writer.write("player " + playerNumber + " discards a " + discardedCard.getValue() + " to deck " + rightDeck.getDeckNumber()+"\n");
+                writer.write("Player " + playerNumber + " discards a " + discardedCard.getValue() + " to deck " + rightDeck.getDeckNumber()+"\n");
                 break;
             }
         }
@@ -160,6 +172,11 @@ public class Player implements Runnable{
         rightDeck.printDeck();
         */
         //System.out.println();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void endGame(BufferedWriter writer) {
