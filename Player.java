@@ -73,6 +73,7 @@ public class Player implements Runnable{
         //method which handles drawing and discarding cards as well as ending the game when hand is winning 
         String playerStr = ("player"+playerNumber+"_output.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(playerStr));
+        writer.write("player "+playerNumber +" initial hand: "+hand+"\n");
         /**Checks if the game has been won by another player
          * As it only does this between a combined draw and discard action this action is atomic
          * and will not be interrupted when another player wins
@@ -86,7 +87,7 @@ public class Player implements Runnable{
                 if (checkWinningHand()) {
                     System.out.println("Player " + playerNumber + " wins");
                     writer.write("Player " + playerNumber + " wins\n");
-                    winningPlayerNumber = playerNumber;//so other players know whick player has won
+                    winningPlayerNumber = playerNumber;//so other players know which player has won
                     gameWon = true;
                     break;
                 }
