@@ -2,11 +2,12 @@ import java.io.*;
 import java.util.*;
 
 public class Player implements Runnable{
+    //runnable player class that takes part in the game
     private int playerNumber;
     public ArrayList<Card> hand;
     Deck leftDeck;
-    Deck rightDeck; //having these be attributes of the player makes them easier to access
-    static boolean gameWon = false; //by setting this value as static it can be updated globally
+    Deck rightDeck; 
+    static boolean gameWon = false; 
     static int winningPlayerNumber = 0;
 
 
@@ -46,7 +47,7 @@ public class Player implements Runnable{
     }
 
     /*
-    So fixed this. It basically just iterates through the hand, checking every card against the first one, since for a
+    Iterates through the hand, checking every card against the first one, since for a
     list to contain all the same elements, everything must be equal to the first element. If it ever finds something
     that isn't the same, it returns false
      */
@@ -69,10 +70,13 @@ public class Player implements Runnable{
     }
 
     public void playGame() throws IOException {
-        //the gameWon value has been made an attribute, so it can be altered by the method which
-        //receives a notification (in the form of an event) when another player wins
+        //method which handles drawing and discarding cards as well as ending the game when hand is winning 
         String playerStr = ("player"+playerNumber+"_output.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(playerStr));
+        /**Checks if the game has been won by another player
+         * As it only does this between a combined draw and discard action this action is atomic
+         * and will not be interrupted when another player wins
+         */
         while (!gameWon) {
             
                 /*
@@ -82,20 +86,12 @@ public class Player implements Runnable{
                 if (checkWinningHand()) {
                     System.out.println("Player " + playerNumber + " wins");
                     writer.write("Player " + playerNumber + " wins\n");
-                    winningPlayerNumber = playerNumber;
+                    winningPlayerNumber = playerNumber;//so other players know whick player has won
                     gameWon = true;
                     break;
                 }
-       
 
-                // Checks if the leftDeck is empty
-                //sometimes the decks are empty but it doesn't *seem* to cause any problems 
-                /*
-                if (!leftDeck.getCardsInDeck().isEmpty()) {
-                    drawAndDiscard(writer);      
-                }
-                */
-
+                //to prevent attempts to access an empty deck
                 if (leftDeck.deckSize() == 0) {
                     try {
                         Thread.sleep(100);
@@ -103,6 +99,7 @@ public class Player implements Runnable{
                         throw new RuntimeException(e);
                     }
                 } else {
+                    //calls the synchronized drawAndDiscard method
                     drawAndDiscard(writer);
                 }
             
@@ -110,10 +107,7 @@ public class Player implements Runnable{
         }
         
 
-        // Print the final hands and exit messages for each player
-        
-        //System.out.println("player " + playerNumber + " final hand: " + hand);
-        //System.out.println("player " + playerNumber + " exits");
+        //if player hasn't won but loop has ended game must be over
         if (!checkWinningHand()) {
             writer.write("Player " + winningPlayerNumber + " has informed Player " + playerNumber + " that Player " +winningPlayerNumber+" has won.\n");
         }
@@ -151,7 +145,6 @@ public class Player implements Runnable{
                 Card discardedCard = hand.remove(discardIndex);
                 rightDeck.addCardToDeck(discardedCard);
                 hasDiscarded = true;
-                //System.out.println("player " + playerNumber + " discards a " + discardedCard.getValue() + " to deck " + rightDeck.getDeckNumber());
                 writer.write("Player " + playerNumber + " discards a " + discardedCard.getValue() + " to deck " + rightDeck.getDeckNumber()+"\n");
                 break;
             }
@@ -163,15 +156,8 @@ public class Player implements Runnable{
             rightDeck.addCardToDeck(discardedCard); 
         }
 
-        // Prints the current hand
-        //System.out.print("player " + playerNumber + " current hand is " + hand);
+        
         writer.write("player " + playerNumber + " current hand is " + hand + "\n");
-        /**System.out.println("player" + playerNumber + "left deck is ");
-        leftDeck.printDeck();
-        System.out.println("player" + playerNumber + "right deck is ");
-        rightDeck.printDeck();
-        */
-        //System.out.println();
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -181,10 +167,10 @@ public class Player implements Runnable{
 
     private void endGame(BufferedWriter writer) {
         try {
-            leftDeck.endGame();
-            writer.close();
+            leftDeck.endGame();//if each player tells their left deck to end this will account for all decks
+            writer.close(); //finally closes the writer
         } catch(IOException anIOException) {
-            anIOException.printStackTrace();
+            anIOException.printStackTrace();//should never happen
         }
         
     }

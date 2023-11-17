@@ -2,19 +2,12 @@ import java.util.*;
 import java.io.*;
 
 public class CardGame {
-
+    //executable class for running the game
     public static void main(String[] args) throws Exception{
-
-        /*
-        Scanner in = new Scanner(System.in);
-        System.out.println("Please enter number of players: ");
-        int n = Integer.parseInt(in.nextLine());
-        //int n = 3;
-        int totalCards = 8 * n;
-        */
 
         Scanner input = new Scanner(System.in);
         int n;
+        //gets a numerical input from user for number of players
         do {
             System.out.println("Please enter number of players (number should be a positive integer): ");
             while (!input.hasNextInt()) {
@@ -31,7 +24,7 @@ public class CardGame {
         List<Player> players = new ArrayList<>();
         List<Card> remainingCards = new ArrayList<>();
 
-
+        //creating players and decks
         for (int i = 1; i <= n; i++) {
             decks.add(new Deck(i));
         }
@@ -47,62 +40,26 @@ public class CardGame {
             if (playerNumber < n) {
                 Deck right = decks.get(playerNumber);
                 player.setDecks(left, right);
-            } else {
+            } else {//need to assign the first deck to the last player to maintain ring topology
                 Deck right = decks.get(0);
                 player.setDecks(left, right);
             }
         }
 
-        /*testing that assigning decks works
-        for (Player p : players) {
-            System.out.println("player: " + p.getPlayerNumber());
-            System.out.println("left deck: " + p.getLeftDeck().getDeckNumber());
-            System.out.println("right deck: " + p.getRightDeck().getDeckNumber());
-        }*/
-
-        /*
-        boolean packRead = false;
-        Scanner inputPack = new Scanner(System.in);
-        do {
-            System.out.println("Please enter location of pack to load: ");
-            while(!inputPack.hasNextLine()) {
-                String file = inputPack.nextLine();
-                //String file = "threeB.txt";
-                try {
-                    remainingCards = attemptToReadPackFile(file, totalCards);
-                    packRead = true;
-                } catch (Exception e) {
-                    System.out.println("Invalid pack file");
-                }
-            }
-        } while (!packRead);
-         */
-
+        //loops until user gives a valid pack file
         boolean packRead = false;
         while (!packRead) {
-            System.out.println("Please enter the location of the pack to load (pack should be a plain text file): ");
-            /*
-            while (!input.hasNext(".*.txt")) {
-                System.out.println("That's not a .txt file");
-                System.out.println("Please enter the location of the pack to load (pack should be a plain text file): ");
-                input.next();
-            }
-             */
+            System.out.println("Please enter the location of the pack to load (pack should be a plain text file\nand contain *exactly* 8n entries where n is the number of players): ");
             String file = input.nextLine();
             try {
-                remainingCards = attemptToReadPackFile(file, totalCards);
+                remainingCards = attemptToReadPackFile(file, totalCards); //tries to read the file
                 packRead = true;
             } catch (Exception e) {
-                System.out.println("Can't find pack file");
+                //if file is invalid, attemptToReadPackFile should throw an exception
+                System.out.println("Can't find a valid pack file with that name");
             }
         }
         input.close();
-
-            //inputPack.close();
-        //testing getting cards from file works
-        /*for (Card c : remainingCards) {
-            System.out.println(c.getValue());
-        }*/
 
         Collections.shuffle(remainingCards);
 
@@ -113,55 +70,37 @@ public class CardGame {
             }
         }
 
+        //adds the remaining cards to the decks
         int deckIndex = 0;
         for (Card card : remainingCards) {
             decks.get(deckIndex).addCardToDeck(card);
             deckIndex = (deckIndex + 1) % n;
         }
-    
 
-        //testing players have been allocated hands
-        /**for (Player p : players) {
-            for (Card c : p.getHand()) {
-                System.out.println("player"+p.getPlayerNumber()+ "'s hand: " + c.getValue());
-            }
-        }*/
-
-        //testing deck allocation
-        /**for (Deck deck : decks) {
-            for (Card card : deck.getCardsInDeck()) {
-                System.out.println("deck"+deck.getDeckNumber()+ ": " + card.getValue());
-            }
-        }*/
-
-        //now to actually start the player threads
+        //starts the player threads
         for (Player player : players) {
             Thread playerThread = new Thread(player);
             playerThread.start();
         }
-        /*
-        for (Player player : players) {
-            System.out.println(player.getHand());
-            System.out.println(player.checkWinningHand());
-        }
-        */
+        
 
 
-        int deckTotal = 0;
-        for (Deck deck : decks) {
-            deckTotal = deckTotal + deck.deckSize();
-        }
-        System.out.println(deckTotal);
+        
 
     }
 
+    //method to take a file and a number of cards and attempt to create a list of cards from that file
     public static ArrayList<Card> attemptToReadPackFile(String file, int cardNum) throws Exception {
         ArrayList<Card> listOfCardsFromFile = new ArrayList<>();
         int denomination;
         BufferedReader fileIn = new BufferedReader(new FileReader(file));
         for (int i = 0; i < cardNum; i++) {
             denomination = Integer.parseInt(fileIn.readLine());
-            listOfCardsFromFile.add(new Card(denomination));
+            listOfCardsFromFile.add(new Card(denomination));//creating card objects from lines in file
+        }
+        if (fileIn.readLine() != null) { //if there are more entries, pack file was too large
+            fileIn.close();
+            throw new Exception();
         }
         fileIn.close();
         return listOfCardsFromFile;

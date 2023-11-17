@@ -1,38 +1,20 @@
-Player 2 draws a 2 from deck 2
-Player 2 discards a 1 to deck 3
-player 2 current hand is [6, 3, 6, 2]
 Player 2 draws a 4 from deck 2
-Player 2 discards a 6 to deck 3
-player 2 current hand is [3, 6, 2, 4]
-Player 2 draws a 6 from deck 2
-Player 2 discards a 3 to deck 3
-player 2 current hand is [6, 2, 4, 6]
-Player 2 draws a 2 from deck 2
-Player 2 discards a 6 to deck 3
-player 2 current hand is [2, 4, 6, 2]
-Player 2 draws a 6 from deck 2
 Player 2 discards a 4 to deck 3
-player 2 current hand is [2, 6, 2, 6]
-Player 2 draws a 5 from deck 2
+player 2 current hand is [2, 5, 5, 4]
+Player 2 draws a 2 from deck 2
+Player 2 discards a 5 to deck 3
+player 2 current hand is [2, 5, 4, 2]
+Player 2 draws a 6 from deck 2
+Player 2 discards a 5 to deck 3
+player 2 current hand is [2, 4, 2, 6]
+Player 2 draws a 2 from deck 2
+Player 2 discards a 4 to deck 3
+player 2 current hand is [2, 2, 6, 2]
+Player 2 draws a 6 from deck 2
 Player 2 discards a 6 to deck 3
-player 2 current hand is [2, 2, 6, 5]
+player 2 current hand is [2, 2, 2, 6]
 Player 2 draws a 2 from deck 2
 Player 2 discards a 6 to deck 3
-player 2 current hand is [2, 2, 5, 2]
-Player 2 draws a 3 from deck 2
-Player 2 discards a 5 to deck 3
-player 2 current hand is [2, 2, 2, 3]
-Player 2 draws a 5 from deck 2
-Player 2 discards a 3 to deck 3
-player 2 current hand is [2, 2, 2, 5]
-Player 2 draws a 3 from deck 2
-Player 2 discards a 5 to deck 3
-player 2 current hand is [2, 2, 2, 3]
-Player 2 draws a 3 from deck 2
-Player 2 discards a 3 to deck 3
-player 2 current hand is [2, 2, 2, 3]
-Player 2 draws a 2 from deck 2
-Player 2 discards a 3 to deck 3
 player 2 current hand is [2, 2, 2, 2]
 Player 2 wins
 Player 2 exits

@@ -1,1 +1,1 @@
-deck 4 contents at end of game: []
+Deck 4 contents at end of game: [56, 4, 56]

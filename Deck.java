@@ -1,7 +1,8 @@
 import java.util.*;
-import java.io.*; //will be needed when writes to files
+import java.io.*; 
 
 public class Deck {
+    //deck class representing a list of card objects
 
     private ArrayList<Card> cards;
     private int deckNumber;
@@ -19,6 +20,7 @@ public class Deck {
         if (!cards.isEmpty()) {
             return cards.remove(0);
         }
+        //should never occur as deck should never be empty
         return null;
     }
 

@@ -1,4 +1,5 @@
 public class Card {
+    //card class that represents a card object with a denomination/value
     public final int value;
 
     public Card(int value) {
