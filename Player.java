@@ -69,7 +69,7 @@ public class Player implements Runnable{
         }
     }
 
-    public void playGame() throws IOException {
+    private void playGame() throws IOException {
         //method which handles drawing and discarding cards as well as ending the game when hand is winning 
         String playerStr = ("player"+playerNumber+"_output.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(playerStr));
