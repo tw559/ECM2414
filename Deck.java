@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*; 
 
 public class Deck {
-    //deck class representing a list of card objects
+    // Deck class is used to represent lists of cards, which forms decks for players to draw from
 
     private ArrayList<Card> cards;
     private int deckNumber;
@@ -20,7 +20,7 @@ public class Deck {
         if (!cards.isEmpty()) {
             return cards.remove(0);
         }
-        //should never occur as deck should never be empty
+        // Should never be called, but if a deck is empty a 'null' value with enter the decks or hand of a player
         return null;
     }
 
@@ -39,17 +39,16 @@ public class Deck {
     public ArrayList<Card> getCardsInDeck() {
         return cards;
     }
-    //for testing purposes only
+    // Never called except for in testing
     public void printDeck() {
         System.out.println(cards);
     }
 
-    //for writing to file at end of game
+    // Outputs a file at the end of the game for each deck detailing their contents
     public void endGame() throws IOException {
         String deckStr = ("deck" + deckNumber + "_output.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(deckStr));
         writer.write("Deck " + deckNumber + " contents at end of game: " + cards);
-
         writer.close();
 
     }

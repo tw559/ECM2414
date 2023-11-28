@@ -1,7 +1,6 @@
 public class Card {
-    //card class that represents a card object with a denomination/value
+    // Card class is used to represent Card objects, which have a value and are stored in decks
     public final int value;
-
     public Card(int value) {
 
         this.value = value;
